@@ -12,6 +12,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
+    "start": "node index",
+    "dev": "node-dev index",
     "test": "mocha --timeout=600000"
   },
   "dependencies": {
