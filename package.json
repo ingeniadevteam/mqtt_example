@@ -13,12 +13,13 @@
   },
   "scripts": {
     "start": "node index",
-    "dev": "node-dev index",
+    "dev": "NODE_ENV=development node-dev index",
     "test": "mocha --timeout=600000"
   },
   "dependencies": {
     "@google-cloud/iot": "^2.0.0",
     "@google-cloud/pubsub": "^2.0.0",
+    "better-queue": "^3.8.10",
     "dotenv": "^10.0.0",
     "jsonwebtoken": "^8.5.0",
     "mqtt": "^4.0.0",

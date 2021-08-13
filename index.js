@@ -1,21 +1,28 @@
 'use strict';
 
-require('dotenv').config()
+require('dotenv').config();
 
+const queues = require('./lib/queues');
+const connect = require('./lib/connect');
 
-const demo = require('./lib/demo');
-
-const state = {
-    // Whether to wait with exponential backoff before publishing.
-    shouldBackoff: false,
-    // Whether an asynchronous publish chain is in progress.
-    publishChainInProgress: false,
+const app = {
+    mqtt_queue: null,
+    mqtt_client: null,
+    mqtt_ready: false,
 };
 
-
 (async () => {
+    queues(app);
+    connect(app);
 
-    demo(state)
+    setInterval(() => {
+        const timestamp = Math.floor((new Date()).getTime() / 1000);
+        const payload = {
+            deviceID: process.env.GOOGLE_CLOUD_IOT_DEVICE,
+            timestamp: timestamp,
+            value: timestamp
+        };
 
-    setInterval(() => {}, 1000);
+        app.mqtt_queue.push(payload);
+    }, 3000);
 })();
